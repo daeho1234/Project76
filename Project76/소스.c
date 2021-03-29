@@ -19,7 +19,10 @@ void star(int a)
 int main()
 {
 	int a;
+	char word1[6] = "Hello";
+	char word2[6] = "World";
 	scanf_s("%d", &a);
 	star(a);
+	printf("%s %s \n",word1,word2);
 	return 0;
 }
