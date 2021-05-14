@@ -1,26 +1,37 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define SWAP(x,y,t) ((t)=(x), (x)=(y), (y)=(t))
 
-void bubble_sort(int list[], int n)
+void inc_insertion_sort(int list[],int first, int last, int gap)
 {
-	int i, j, temp;
-	for (i = n - 1; i > 0; i--)
+	int i, j, key;
+	for (i = first + gap; i <= last; i = i + gap)
 	{
-		for (j = 0; j < i; j++)
-			if (list[j] > list[j + 1]) {
-				SWAP(list[j], list[j + 1], temp);
-				for (int i = 0; i < 5; i++)
-					printf("%d ", list[i]);
-				printf("\n");
-			}
+		key = list[i];
+		for (j = i - gap; j >= first && list[j] > key;j=j-gap)
+			list[j + gap] = list[j];
+		list[j + gap] = key;
 	}
 }
 
-int main(void)
+void shell_sort(int list[],int n)
 {
-	int a[15] = { 15,10,14,20,31,1,17,11,18,12,6,8,100,23,21 };
+	int i, gap;
+	for (gap = n / 2; gap > 0; gap = gap / 2)
+	{
+		if (gap % 2 == 0)
+			gap++;
+		for (i = 0; i < gap; i++)
+			inc_insertion_sort(list, i, n - 1, gap);
+	}
+}
 
-	bubble_sort(a, 11);
-	return 0;
+void main()
+{
+	int list[11] = { 10, 8, 6, 20, 4, 3, 22, 1, 0, 15, 16 };
+	shell_sort(list, 11);
+	for (int i = 0;i < 11; i++)
+	{
+		printf("%d ",list[i]);
+	}
+	
 }
